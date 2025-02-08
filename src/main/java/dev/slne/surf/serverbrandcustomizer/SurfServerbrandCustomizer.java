@@ -12,6 +12,7 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.LiteralMessage;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import dev.slne.surf.serverbrandcustomizer.buf.Utf8String;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import io.netty.buffer.Unpooled;
 import io.papermc.paper.command.brigadier.Commands;
@@ -20,8 +21,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-import net.minecraft.network.Utf8String;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -37,10 +38,8 @@ public final class SurfServerbrandCustomizer extends JavaPlugin {
   @SuppressWarnings("UnstableApiUsage")
   @Override
   public void onLoad() {
-    if (PacketEvents.getAPI() == null) {
-      PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-      PacketEvents.getAPI().load();
-    }
+    PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
+    PacketEvents.getAPI().load();
 
     getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS.newHandler(event ->
         event.registrar().register(
@@ -118,7 +117,7 @@ public final class SurfServerbrandCustomizer extends JavaPlugin {
       }
     });
 
-    new Metrics(this, 	24696);
+    new Metrics(this, 24696);
   }
 
   @Override
@@ -128,7 +127,7 @@ public final class SurfServerbrandCustomizer extends JavaPlugin {
 
   private byte @NotNull [] getCustomServerBrandBytes() {
     var buf = Unpooled.buffer();
-    Utf8String.write(buf, customServerBrand, Short.MAX_VALUE);
+    Utf8String.writeString(buf, customServerBrand);
     var data = new byte[buf.readableBytes()];
     buf.readBytes(data);
 
@@ -150,10 +149,11 @@ public final class SurfServerbrandCustomizer extends JavaPlugin {
       return;
     }
 
+    //noinspection deprecation
     customServerBrand = LegacyComponentSerializer.legacySection()
                             .serialize(Component.text()
                                 .append(MiniMessage.miniMessage().deserialize(rawBrand))
                                 .build()
-                            ) + "§r";
+                            ) + ChatColor.RESET;
   }
 }
