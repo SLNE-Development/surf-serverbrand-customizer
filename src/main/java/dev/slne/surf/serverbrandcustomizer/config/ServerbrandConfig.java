@@ -49,9 +49,9 @@ public final class ServerbrandConfig {
   }
 
   public void setCustomServerBrand(String customServerBrand) {
-    this.customServerBrand = customServerBrand;
     plugin.getConfig().set("brand", customServerBrand);
     plugin.saveConfig();
+    reloadFromConfig();
   }
 
   public byte @NotNull [] getCustomServerBrandBytes() {
