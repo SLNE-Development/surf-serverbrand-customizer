@@ -28,6 +28,7 @@ paper {
     loader = 'dev.slne.surf.serverbrandcustomizer.SurfServerbrandCustomizerLoader'
     apiVersion = '1.21'
     authors = ['twisti']
+    contributors = ['red', 'keviro']
     description = 'Customize the server brand displayed to the player in the F3 menu'
     generateLibrariesJson = true
 
