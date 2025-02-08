@@ -1,5 +1,5 @@
 ### 🇩🇪 **Beschreibung – Minecraft Serverbrand Plugin**
-Mit dem **Serverbrand-Plugin** kannst du den **Servernamen im F3-Menü** anpassen! Statt dem Standard-Text wie *Minecraft Vanilla Server* wird dein eigener Servername angezeigt – ideal für **Branding** oder **Personalisierung** deines Servers.
+Mit dem **Serverbrand-Plugin** kannst du den **Servernamen im F3-Menü** anpassen! Statt dem Standard-Text wie *"Paper" server* wird dein eigener Servername angezeigt – ideal für **Branding** oder **Personalisierung** deines Servers.
 
 #### 🚀 Funktionen:
 - Anpassung des **Serverbrands im F3-Menü**
@@ -17,7 +17,7 @@ Mit dem **Serverbrand-Plugin** kannst du den **Servernamen im F3-Menü** anpasse
 ---
 
 ### 🇺🇸 **Description – Minecraft Serverbrand Plugin**
-The **Serverbrand Plugin** allows you to **customize the server name in the F3 menu**! Replace the default *Minecraft Vanilla Server* text with your own server name – perfect for **branding** and **personalization**.
+The **Serverbrand Plugin** allows you to **customize the server name in the F3 menu**! Replace the default *"Paper" server* text with your own server name – perfect for **branding** and **personalization**.
 
 #### 🚀 Features:
 - Customize the **server brand in the F3 menu**
