@@ -17,11 +17,14 @@ SurfServerBrandCustomizer is a lightweight and flexible Minecraft plugin designe
 
 ## Installation
 1. Download the plugin from Modrinth.
-2. Place the `.jar` file into your server's `plugins` folder.
-3. Start the server and modify the configuration file (`config.yml`) to set your desired brand.
-4. Use `/serverbrand reload` to apply changes instantly.
+2. Download [packetevents](https://modrinth.com/plugin/packetevents/).
+3. Place both `.jar` files into your server's `plugins` folder.
+4. Start the server and modify the configuration file (`config.yml`) to set your desired brand.
+5. Use `/serverbrand reload` to apply changes instantly.
 
 ## Why SurfServerBrandCustomizer?
 This plugin is perfect for those looking to add a personal touch to their server or hide the default brand name. Whether you run a public server or a private community, SurfServerBrandCustomizer makes branding effortless.
 
 Make your server unique today! 🎉
+
+![bstats](https://bstats.org/signatures/bukkit/surf-serverbrand-customizer.svg)
