@@ -117,6 +117,8 @@ public final class SurfServerbrandCustomizer extends JavaPlugin {
         }
       }
     });
+
+    new Metrics(this, 	24696);
   }
 
   @Override
