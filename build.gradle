@@ -26,7 +26,6 @@ dependencies {
 
 paper {
     main = 'dev.slne.surf.serverbrandcustomizer.SurfServerbrandCustomizer'
-    loader = 'dev.slne.surf.serverbrandcustomizer.SurfServerbrandCustomizerLoader'
     apiVersion = '1.21'
     authors = ['twisti']
     description = 'Customize the server brand displayed to the player in the F3 menu'
