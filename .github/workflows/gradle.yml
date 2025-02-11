@@ -1,18 +1,30 @@
-name: Build
+name: Build and Publish
+
+permissions:
+  actions: write
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sources
+      - name: Checkout code
         uses: actions/checkout@v4
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'graalvm'
+          java-version: '21'
+      - name: Grant execute permission for Gradle
+        run: chmod +x ./gradlew
+      - name: Install dependencies
+        run: ./gradlew dependencies
+      - name: Publish
+        run: ./gradlew publish
+        env: 
+          MAVEN_USERNAME: ${{ secrets.REPO_PUBLISH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.REPO_PUBLISH_TOKEN }}
