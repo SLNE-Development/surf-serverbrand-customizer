@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    `maven-publish`
     id("com.gradleup.shadow") version "9.0.0-beta7"
     id 'de.eldoria.plugin-yml.paper' version '0.7.0'
     id 'xyz.jpenilla.run-paper' version "2.3.1"
@@ -49,6 +50,22 @@ tasks {
 
     shadowJar {
         archiveClassifier = ''
+    }
+}
+
+publishing {
+    repositories {
+        maven(System.getenv("MAVEN_URL")) { 
+            name = "maven-snapshots"      
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+    }
+
+    publications.create<MavenPublication>("maven") {
+        from(components["java"])
     }
 }
 
