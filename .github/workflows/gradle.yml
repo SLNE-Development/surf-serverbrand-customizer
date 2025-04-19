@@ -1,31 +1,62 @@
-name: Build and Publish
-
-permissions:
-  actions: write
+name: Build & Create GitHub Release
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
+env:
+  MODULE_REGEX: "surf-serverbrand-customizer.*\\.jar$"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Collect Workflow Telemetry
+        uses: catchpoint/workflow-telemetry-action@v2
+
+      - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Set up JDK
+        with:
+          fetch-depth: 0
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'graalvm'
           java-version: '21'
-      - name: Grant execute permission for Gradle
-        run: chmod +x ./gradlew
-      - name: Install dependencies
-        run: ./gradlew dependencies
-      - name: Publish
-        run: ./gradlew publish
-        env: 
-          MAVEN_URL: ${{ secrets.REPO_PUBLISH_URL }}
-          MAVEN_USERNAME: ${{ secrets.REPO_PUBLISH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.REPO_PUBLISH_TOKEN }}
+
+      - name: Build all modules with Gradle
+        run: ./gradlew shadowJar --parallel --no-scan
+
+      - name: Extract Project Version
+        id: get_version
+        run: echo "VERSION=$(./gradlew properties | grep "^version:" | awk '{print $2}')" >> $GITHUB_ENV
+
+      - name: Find and filter JAR files
+        id: find_jars
+        run: |
+          echo "JAR_FILES<<EOF" >> $GITHUB_ENV
+          find . -path "**/build/libs/*.jar" | grep -E "${{ env.MODULE_REGEX }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Release ${{ env.VERSION }}
+          draft: false
+          prerelease: false
+          files: ${{ env.JAR_FILES }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
