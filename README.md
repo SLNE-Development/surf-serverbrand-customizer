@@ -14,6 +14,8 @@ SurfServerBrandCustomizer is a lightweight and flexible Minecraft plugin designe
   Set the custom server brand name.
 - `/serverbrand reload`  
   Reload the plugin's configuration.
+> To be able to use the `/serverbrand` commands, you need to have the
+`surf.serverbrand.customizer.command` permission.
 
 ## Installation
 1. Download the plugin from Modrinth.

@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'dev.slne.surf.serverbrandcustomizer'
-version = '1.21.4-1.0.0'
+version = '1.21.4-1.0.1'
 
 repositories {
     mavenCentral()

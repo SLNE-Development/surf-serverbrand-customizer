@@ -24,6 +24,7 @@ public class ServerbrandCommand {
 
   public static void register(Commands commands) {
     commands.register(Commands.literal("serverbrand")
+        .requires(source -> source.getSender().hasPermission("surf.serverbrand.customizer.command"))
         .then(Commands.literal("reload")
             .executes(context -> doReload(context.getSource())))
         .then(Commands.literal("set")
